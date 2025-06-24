@@ -15,9 +15,7 @@ export class FileUtils {
       console.error(
         `Erro ao criar json da planilha: ${sheetNameString}, erro: ${err}`
       );
-      if (err instanceof Error) {
-        throw new Error(`${err}`);
-      }
+      throw err;
     }
   }
 }
