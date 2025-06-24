@@ -15,6 +15,7 @@ export class HomeComponent {
 
   async getClients() {
     const url = 'http://localhost:3000/admin/fullClients';
+    // TODO: sugestao utilizar fetch nativo no lugar do axios
     const res = await axios.get(url);
     console.log(res.data);
   }
