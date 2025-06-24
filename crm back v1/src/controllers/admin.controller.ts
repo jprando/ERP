@@ -4,6 +4,7 @@ import { FileUtils } from "../utils/excelToJson";
 import fs from "fs";
 
 // TODO padronizar a estrutura da mensagem no retorno de res.status.json
+// TODO evitar o uso de try dentro de try
 
 export class AdminController {
   static async createClients(req: Request, res: Response): Promise<void> {
