@@ -2,6 +2,9 @@ import { Request, Response } from "express";
 import { ClientService } from "../services/admin.service";
 import { FileUtils } from "../utils/excelToJson";
 import fs from "fs";
+
+// TODO padronizar a estrutura da mensagem no retorno de res.status.json
+
 export class AdminController {
   static async createClients(req: Request, res: Response): Promise<void> {
     try {
@@ -73,7 +76,7 @@ export class AdminController {
           };
           const teste = await ClientService.deleteClient(clientData);
           if (!teste) {
-            console.log("deu ruim aq");
+            console.error("#erro controller:admin:clientService:deleteClient");
           }
         }
 
@@ -83,7 +86,7 @@ export class AdminController {
         });
       } finally {
         fs.rmdir(filePath, () => {
-          console.log(`Arquivo: ${filePath} deletado`);
+          console.info(`Arquivo: ${filePath} deletado`);
         });
       }
     } catch (err) {
@@ -121,31 +124,31 @@ export class AdminController {
           };
           switch (codigo) {
             case 0:
-              console.log("tamo no 0 --> apagar");
+              console.info("tamo no 0 --> apagar");
 
               const deleteOne = await ClientService.deleteClient(clientData);
               if (!deleteOne) {
-                console.log("fudeu");
+                console.error("#erro controller:admin:clientService.deleteClient");
               }
               break;
             case 1:
-              console.log("tamo no 1 --> criar");
+              console.info("tamo no 1 --> criar");
 
               const create = await ClientService.registerClient(clientData);
               if (!create) {
-                console.log("fudeu");
+                console.error("#erro controller:admin:clientService.registerClient");
               }
               break;
             case 2:
-              console.log("tamo no 2 --> atualizar");
+              console.info("tamo no 2 --> atualizar");
 
               const update = await ClientService.updateClient(clientData);
               if (!update) {
-                console.log("fudeu");
+                console.error("#erro controller:admin:clientService.updateClient");
               }
               break;
             default:
-              console.log("id not expected");
+              console.warn("id not expected");
               break;
           }
         }
@@ -156,7 +159,7 @@ export class AdminController {
         });
       } finally {
         fs.rmdir(filePath, () => {
-          console.log(`Arquivo: ${filePath} deletado`);
+          console.info(`Arquivo: ${filePath} deletado`);
         });
       }
     } catch (err) {
